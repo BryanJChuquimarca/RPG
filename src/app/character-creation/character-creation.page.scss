@@ -1,0 +1,86 @@
+.character-creation {
+    --background: #1E1E2E;
+    color: #FFFFFF;
+
+    .container {
+        padding: 1rem;
+    }
+
+    h2 {
+        text-align: center;
+        color: #FACC15;
+        margin-bottom: 1rem;
+    }
+
+    .character-selection {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .character-card {
+        background-color: #2C2C3C;
+        border-radius: 1rem;
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border: 2px solid transparent;
+
+        img {
+            width: auto;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        &.selected {
+            border-color: #5E60CE;
+            transform: scale(1.05);
+        }
+
+        h3 {
+            margin-top: 0.5rem;
+            color: #FFFFFF;
+        }
+    }
+
+    .character-details {
+        margin-top: 2rem;
+
+        ion-list {
+            background: transparent;
+
+            ion-item {
+                background-color: #2C2C3C;
+                color: #FFFFFF;
+            }
+        }
+
+        .pixelart-preview {
+            margin: 1rem 0;
+            text-align: center;
+
+            img {
+                width: 80px;
+                height: auto;
+            }
+        }
+
+        ion-item {
+            margin-bottom: 1rem;
+        }
+
+        ion-button {
+            margin-top: 1rem;
+            --background: #5E60CE;
+            --background-hover: #7B7DF2;
+        }
+    }
+
+    .character-card.selected {
+        border: 2px solid #4caf50;
+        transform: scale(1.05);
+        transition: 0.2s;
+    }
+
+}

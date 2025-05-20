@@ -1,0 +1,7 @@
+{
+  "name": "proyecto_cafeteria",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

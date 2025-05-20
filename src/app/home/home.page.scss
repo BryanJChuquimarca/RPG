@@ -1,0 +1,56 @@
+ion-content {
+    --background: #2d2d2d;
+    padding: 15px;
+}
+
+ion-card {
+    --background: #3b3b3b;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+    text-align: center;
+}
+
+ion-card:hover {
+    transform: scale(1.03);
+}
+
+ion-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+ion-card-content {
+    font-size: 1rem;
+    color: #cfcfcf;
+}
+
+ion-button {
+    --background: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-weight: bold;
+}
+
+ion-button:hover {
+    --background: #0056b3;
+    transform: scale(1.05);
+}
+
+#items {
+    margin-top: 15px;
+}
+
+#deuda-contenedor {
+    display: flex;
+    justify-content: center;
+
+    margin-left: 33%;
+}

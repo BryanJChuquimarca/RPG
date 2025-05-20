@@ -1,0 +1,47 @@
+<ion-content [fullscreen]="true" class="character-creation">
+  <div class="container">
+    <h2>Elige tu clase</h2>
+
+    <div class="character-selection">
+      @for (character of characters; track character) {
+      <div class="character-card" [class.selected]="character === selectedCharacter"
+        (click)="selectCharacter(character)">
+        <img [src]="'assets/' + character.image" alt="character image" />
+        <h3>{{ character.name }}</h3>
+      </div>
+      }
+    </div>
+
+    @if (selectedCharacter) {
+    <div class="character-details">
+      <h3>Estadísticas de {{ selectedCharacter.name }}</h3>
+      <ion-list>
+        <ion-item>HP: {{ selectedCharacter.hp }}</ion-item>
+        <ion-item>Mana: {{ selectedCharacter.mana }}</ion-item>
+        <ion-item>Fuerza: {{ selectedCharacter.strength }}</ion-item>
+        <ion-item>Daño Mágico: {{ selectedCharacter.magic }}</ion-item>
+        <ion-item>Defensa: {{ selectedCharacter.defense }}</ion-item>
+        <ion-item>Crítico: {{ selectedCharacter.critChance }}% (x{{ selectedCharacter.critDamage }})</ion-item>
+      </ion-list>
+
+      <div class="pixelart-preview">
+        <h4>Vista en el juego</h4>
+        <img [src]="'assets/' + selectedCharacter.pixelArt" alt="pixel art preview" />
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Alias del personaje</ion-label>
+        <ion-input [(ngModel)]="alias"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Código promocional (opcional)</ion-label>
+        <ion-input [(ngModel)]="promoCode"></ion-input>
+        <ion-button slot="end" color="secondary" (click)="comprobarCodigo()">Comprobar Codigo</ion-button>
+      </ion-item>
+
+      <ion-button expand="full" color="primary" (click)="saveCharacter()">Guardar Personaje</ion-button>
+    </div>
+    }
+  </div>
+</ion-content>
