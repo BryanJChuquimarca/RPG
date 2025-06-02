@@ -22,4 +22,16 @@ export const routes: Routes = [
     path: 'character-creation',
     loadComponent: () => import('./character-creation/character-creation.page').then( m => m.CharacterCreationPage)
   },
+  {
+    path: 'salas',
+    loadComponent: () => import('./salas/salas.page').then( m => m.SalasPage)
+  },
+  {
+    path: 'mazmorra',
+    loadComponent: () => import('./mazmorra/mazmorra.page').then( m => m.MazmorraPage)
+  },
+  {
+    path: 'sala-espera',
+    loadComponent: () => import('./sala-espera/sala-espera.page').then( m => m.SalaEsperaPage)
+  },
 ];

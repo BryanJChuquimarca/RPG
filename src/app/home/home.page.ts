@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonCol, IonRow, IonGrid, IonContent, IonButton } from '@ionic/angular/standalone';
+import { IonCol, IonRow, IonGrid, IonContent } from '@ionic/angular/standalone';
 import { AuthService } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonCol, IonRow, IonGrid, IonContent, CommonModule, FormsModule, IonButton]
+  imports: [IonCol, IonRow, IonGrid, IonContent, CommonModule, FormsModule]
 })
 
 export class HomePage implements OnInit {
@@ -34,7 +34,6 @@ export class HomePage implements OnInit {
           this.router.navigate(['/character-creation']);
           
         } else {
-          console.log('Player found');
           // 1.2 if player exist, load player data
 
 
@@ -47,6 +46,10 @@ export class HomePage implements OnInit {
 
   userCheck(id: string) {
 
+  }
+
+  goToSalas() {
+    this.router.navigate(['/salas', ]);
   }
 
 }

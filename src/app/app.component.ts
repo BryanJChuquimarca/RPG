@@ -20,9 +20,9 @@ export class AppComponent implements OnInit {
   public usuario: any;
   public appPages = [
     { title: 'Home', url: '/home', icon: 'cart' },
-    { title: 'Productos', url: '/productos', icon: 'fast-Food' },
-    { title: 'Historico', url: '/historico', icon: 'refresh' },
-    { title: 'Login', url: '/login', icon: 'Log-in' }
+    { title: 'Productos', url: '/login', icon: 'fast-Food' },
+    { title: 'Historico', url: '/character-creation', icon: 'refresh' },
+    { title: 'Login', url: '/character-creation', icon: 'Log-in' }
 
   ];
   constructor() {
