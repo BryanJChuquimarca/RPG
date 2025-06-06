@@ -1,34 +1,82 @@
 ion-content {
-    --background: radial-gradient(ellipse at center, #3a2e1e 0%, #1a120b 100%);
-}
+    --background: radial-gradient(ellipse at center, #1a1208 0%, #0a0602 100%);
+    font-family: 'MedievalSharp', cursive;
+    color: #e0c080;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
 
-ion-col {
-    text-align: center;
-    height: 70vh;
+    /* Efecto de textura de pergamino */
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%238b4513" stroke-width="0.3" stroke-dasharray="2,2" opacity="0.1"/></svg>');
+        pointer-events: none;
+        z-index: 0;
+    }
 }
-
 
 .centrar {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 1s ease-out;
+}
+
+ion-grid {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+}
+
+ion-row {
+    margin: -15px;
+    animation: slideUp 0.8s ease-out;
+}
+
+ion-col {
+    height: 65vh;
+    padding: 15px;
+    position: relative;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    
+    &:hover {
+        transform: translateY(-8px);
+        filter: drop-shadow(0 10px 20px rgba(240, 208, 144, 0.2));
+    }
 }
 
 .canvas-container {
     width: 100%;
     height: 100%;
     position: relative;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.8));
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: scale(1.01);
+    }
 }
 
 .canvas {
-    perspective: 800px;
+    perspective: 1200px;
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(20, 15, 10, 0.3);
 }
 
 .tracker {
@@ -36,10 +84,21 @@ ion-col {
     z-index: 10;
     width: 100%;
     height: 100%;
-}
-
-.tracker:hover {
-    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            
+        }
+    }
 }
 
 #card {
@@ -47,81 +106,270 @@ ion-col {
     inset: 0;
     z-index: 5;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    transition: 700ms;
-    background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+    border-radius: 16px;
+    transition: 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    border: 3px solid;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6), 
+                0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(93, 58, 26, 0.4) 0%, transparent 50%, rgba(93, 58, 26, 0.4) 100%);
+        pointer-events: none;
+    }
+    
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%238b4513" stroke-width="0.5" stroke-dasharray="5,3" opacity="0.3"/></svg>');
+        pointer-events: none;
+    }
 }
 
-#card::before {
-    content: '';
-    background: inherit;
-    filter: blur(2rem);
-    opacity: 0.3;
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-}
-
-
-// Estilos específicos para la mazmorra
+/* Estilos específicos para la mazmorra */
 #card.mazmorra {
-  background: url('/assets/mazmorrafondo.png') center center / cover no-repeat;
-  border-radius: 10px;
-  transition: 700ms;
+    background: url('/assets/mazmorrafondo.png') center center / cover no-repeat, 
+                linear-gradient(to bottom, #3a2e1e, #1a120b);
+    border-color: #8b4513;
+    
+    &::before {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%238b4513" stroke-width="0.5" stroke-dasharray="5,3" opacity="0.4"/></svg>');
+    }
+    
+    .title {
+        color: #f0d090;
+        text-shadow: 2px 2px 6px #000, 0 0 10px #8b4513;
+    }
+    
+    #prompt {
+        border-color: #8b4513;
+        background: linear-gradient(to right, rgba(139, 69, 19, 0.7), rgba(93, 58, 26, 0.7));
+    }
 }
 
-#card.mazmorra::before {
-  display: none;
-}
-////////////////////////////////////////////////
+/* Estilos específicos para la arena */
 #card.arena {
-  background: url('/assets/arenafondo.png') center center / cover no-repeat;
-  border-radius: 10px;
-  transition: 700ms;
-}
-
-#card.arena::before {
-  display: none;
+    background: url('/assets/arenafondo.png') center center / cover no-repeat, 
+                linear-gradient(to bottom, #4a3a2a, #2a1a0a);
+    border-color: #a0522d;
+    
+    &::before {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23a0522d" stroke-width="0.5" stroke-dasharray="5,3" opacity="0.4"/></svg>');
+    }
+    
+    .title {
+        color: #ffd700;
+        text-shadow: 2px 2px 6px #000, 0 0 10px #a0522d;
+    }
+    
+    #prompt {
+        border-color: #a0522d;
+        background: linear-gradient(to right, rgba(160, 82, 45, 0.7), rgba(120, 62, 35, 0.7));
+    }
 }
 
 .title {
     position: absolute;
     top: 20%;
-    font-size: 1.5rem;
-    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
     opacity: 0;
-    transition: opacity 300ms ease-in-out;
+    transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 3px;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    transform: translateY(20px);
+    text-transform: uppercase;
 }
 
 .subtitle {
     position: absolute;
     bottom: 15%;
-    font-size: 1rem;
-    color: white;
+    font-size: 1.4rem;
+    color: #e0c080;
+    text-shadow: 1px 1px 3px #000;
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+    opacity: 0;
+    font-style: italic;
+    transition: all 500ms ease-in-out;
+    transform: translateY(10px);
 }
 
 #prompt {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: white;
+    color: #f0d090;
     z-index: 20;
+    text-shadow: 2px 2px 5px #000;
+    letter-spacing: 2px;
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: 2px solid;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(2px);
+    position: relative;
+    overflow: hidden;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to bottom right,
+            rgba(255, 255, 255, 0) 45%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0) 55%
+        );
+        transform: rotate(30deg);
+        transition: all 0.5s ease;
+    }
+    
+    &:hover::after {
+        left: 100%;
+    }
 }
 
-// Mostrar título y ocultar prompt al hover
-.tracker:hover~#card .title {
-    opacity: 1;
+/* Mostrar título y ocultar prompt al hover */
+.tracker:hover~#card {
+    .title {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .subtitle {
+        opacity: 0.9;
+        transform: translateY(0);
+        transition-delay: 100ms;
+    }
+    
+    #prompt {
+        opacity: 0;
+        transform: scale(0.8);
+    }
 }
 
-.tracker:hover~#card #prompt {
-    opacity: 0;
-}
-
-// Rotaciones al hacer hover en trackers
+/* Rotaciones al hacer hover en trackers */
 @for $i from 1 through 25 {
     .tr-#{$i}:hover~#card {
-        transition: 125ms ease-in-out;
-        transform: rotateX(#{-(((($i - 1) / 5) - 2) * 10)}deg) rotateY(#{((($i - 1) % 5) - 2) * 5}deg);
+        transform: rotateX(#{-(((($i - 1) / 5) - 2)) * 10}deg) 
+                   rotateY(#{((($i - 1) % 5) - 2) * 8}deg)
+                   translateZ(30px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Efecto de antorchas decorativas */
+ion-col {
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 80px;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    
+    &::before {
+        top: -20px;
+        left: -20px;
+    }
+    
+    &::after {
+        bottom: -20px;
+        right: -20px;
+    }
+    
+    &:hover::before, &:hover::after {
+        opacity: 0.5;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de parpadeo de fuego */
+@keyframes flicker {
+    0%, 100% { opacity: 0.7; }
+    20%, 60% { opacity: 1; }
+    40%, 80% { opacity: 0.5; }
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    ion-col {
+        height: 50vh;
+        padding: 10px;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto 20px;
+    }
+    
+    .title {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    #prompt {
+        font-size: 1.4rem;
+        padding: 10px 20px;
+    }
+    
+    /* Reducir efecto 3D en móviles */
+    @for $i from 1 through 25 {
+        .tr-#{$i}:hover~#card {
+            transform: rotateX(#{-(((($i - 1) / 5) - 2)) * 5}deg) 
+                       rotateY(#{((($i - 1) % 5) - 2) * 4}deg)
+                       translateZ(15px);
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    ion-col {
+        height: 45vh;
+    }
+    
+    .title {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    #prompt {
+        font-size: 1.2rem;
     }
 }

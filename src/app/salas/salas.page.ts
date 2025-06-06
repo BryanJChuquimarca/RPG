@@ -26,7 +26,7 @@ export class SalasPage implements OnInit {
   joined = false;
   host_url: string = 'http://localhost:3000';
   currentRoom: number | null = null;
-
+  playerInfo: any;
   constructor(private auth: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
@@ -41,16 +41,20 @@ export class SalasPage implements OnInit {
 
 
   joinRoom(room_num: number) {
-    let info = {
-      code: room_num,
-      username: this.player.email, //cambiar para que el name sea correcto
-      email: this.player.email
-    };
-    this.socket.emit('join_room', info);
-    this.router.navigate(['/sala-espera', { room: room_num, player: JSON.stringify(this.player) }]);
+    this.http.get(`${this.host_url}/player/${this.player.email}`).subscribe((response) => {
+      console.log(response, 'usuario info');
+      this.playerInfo = response;
+      let info = {
+        code: room_num,
+        username: this.playerInfo.name,
+        email: this.player.email
+      };
+      this.socket.emit('join_room', info);
+      this.router.navigate(['/sala-espera', { room: room_num, player: JSON.stringify(this.player) }]);
+    })
+
 
   }
 
-  
 
 }

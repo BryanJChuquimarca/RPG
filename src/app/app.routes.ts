@@ -34,4 +34,8 @@ export const routes: Routes = [
     path: 'sala-espera',
     loadComponent: () => import('./sala-espera/sala-espera.page').then( m => m.SalaEsperaPage)
   },
+  {
+  path: 'mazmorra/:room',
+  loadComponent: () => import('./mazmorra/mazmorra.page').then(m => m.MazmorraPage)
+}
 ];

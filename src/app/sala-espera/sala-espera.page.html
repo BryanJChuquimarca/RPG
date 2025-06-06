@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar>
     <ion-title>Sala de Espera - Mazmorra {{ roomCode }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,16 +11,20 @@
       <ion-card-title>Jugadores en la sala</ion-card-title>
     </ion-card-header>
     <ion-list>
-      <ion-item *ngFor="let user of users">
+      @for (user of users; track $index) {
+      
+      <ion-item>
         <ion-label>
-          {{ user }} <span *ngIf="user === lider">(Líder)</span>
+          {{ user }} <span *ngIf="user === lider">(Líder)</span> 
         </ion-label>
+        <ion-button *ngIf="isLeader() && user !== lider" (click)="expulsar(user)"> Expulsar</ion-button>
       </ion-item>
+      }
     </ion-list>
   </ion-card>
 
-  <ion-button expand="block" color="warning" (click)="startGame()" *ngIf="isLeader() && users.length >= 1">
-    Comenzar la aventura 🏰
+  <ion-button expand="block" color="warning" (click)="startGame()" *ngIf="lider && isLeader() && users.length >= 1">
+    Inicar Juego
   </ion-button>
 
 </ion-content>

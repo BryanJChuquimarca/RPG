@@ -1,13 +1,36 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>mazmorra</ion-title>
+    <ion-title>Mazmorra - Sala {{ roomCode }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">mazmorra</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <h2>Jugadores en la Mazmorra</h2>
+  <ul>
+    @for (player of players; track player){
+    <li>
+      {{ player.name }} -
+      Nivel {{ player.level}} -
+      Nivel Progreso {{ player.current_stage }}
+    </li>
+    }
+  </ul>
+
+  <h2 *ngIf="!bossRound">Enemigo Actual</h2>
+  <h2 *ngIf="bossRound">Jefe Final</h2>
+  <div *ngIf="enemy">
+    <p><strong>{{ enemy.nombre }}</strong> - Nivel {{ enemy.nivel }} - Vida: {{ enemy.vida }}</p>
+  </div>
+
+  <h2>Orden de Turnos</h2>
+  <ol>
+    @for (unit of turnOrder; track unit){
+    <li>
+      {{ unit.nombre }} ({{ unit.tipo }})
+    </li>}
+  </ol>
+
+  <ion-button expand="block">
+    Siguiente Ronda
+  </ion-button>
 </ion-content>

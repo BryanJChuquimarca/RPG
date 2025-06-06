@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonInput, IonButton, IonItem, IonLabel, IonList } from '@ionic/angular/standalone';
 import { AuthService } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-character-creation',
   templateUrl: './character-creation.page.html',
@@ -79,7 +79,7 @@ export class CharacterCreationPage implements OnInit {
   public player: any;
   public host_url: string = 'http://localhost:3000'
 
-  constructor(public auth: AuthService, private http: HttpClient) { }
+  constructor(public auth: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.auth.user$.subscribe((data: any) => {
@@ -120,6 +120,8 @@ export class CharacterCreationPage implements OnInit {
     this.http.post(`${this.host_url}/player`, newPlayer).subscribe((response) => {
       console.log('Personaje guardado:', response);
     });
+
+    this.router.navigate(['/home'])
 
   }
 
