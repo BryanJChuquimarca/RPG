@@ -18,13 +18,13 @@ export class CharacterCreationPage implements OnInit {
     {
       name: 'Guerrero',
       image: 'warrior-realistic.png',
-      pixelArt: 'warrior-pixel.png',
+      pixelArt: 'Guerrero.png',
       hp: 120,
       mana: 40,
-      strength: 35,
+      strength: 28,
       magic: 5,
-      defense: 25,
-      critChance: 10,
+      defense: 14,
+      critChance: 7,   // 7%
       critDamage: 1.3,
       level: 1,
       currency: 0
@@ -32,13 +32,13 @@ export class CharacterCreationPage implements OnInit {
     {
       name: 'Mago',
       image: 'mage-realistic.png',
-      pixelArt: 'mage-pixel.png',
+      pixelArt: 'Mago.png',
       hp: 70,
       mana: 100,
       strength: 5,
-      magic: 40,
-      defense: 10,
-      critChance: 12,
+      magic: 32,
+      defense: 8,
+      critChance: 8,   // 8%
       critDamage: 1.5,
       level: 1,
       currency: 0
@@ -46,13 +46,13 @@ export class CharacterCreationPage implements OnInit {
     {
       name: 'Asesino',
       image: 'assassin-realistic.png',
-      pixelArt: 'assassin-pixel.png',
+      pixelArt: 'Asesino.png',
       hp: 85,
       mana: 30,
-      strength: 30,
+      strength: 22,
       magic: 10,
-      defense: 15,
-      critChance: 25,
+      defense: 10,
+      critChance: 15,  // 15%
       critDamage: 1.8,
       level: 1,
       currency: 0
@@ -60,13 +60,13 @@ export class CharacterCreationPage implements OnInit {
     {
       name: 'Clérigo',
       image: 'cleric-realistic.png',
-      pixelArt: 'cleric-pixel.png',
+      pixelArt: 'Clérigo.png',
       hp: 100,
       mana: 80,
-      strength: 15,
-      magic: 25,
-      defense: 20,
-      critChance: 8,
+      strength: 12,
+      magic: 22,
+      defense: 12,
+      critChance: 6,   // 6%
       critDamage: 1.2,
       level: 1,
       currency: 0
@@ -89,6 +89,8 @@ export class CharacterCreationPage implements OnInit {
 
   selectCharacter(character: any) {
     this.selectedCharacter = character;
+    console.log(this.selectedCharacter
+    )
   }
 
   saveCharacter() {
@@ -97,7 +99,7 @@ export class CharacterCreationPage implements OnInit {
       return;
     }
 
-    const newPlayer = {
+    let newPlayer = {
       id: this.player.email,
       name: this.alias,
       health_points: this.selectedCharacter.hp,
@@ -109,7 +111,8 @@ export class CharacterCreationPage implements OnInit {
       critical_damage: this.selectedCharacter.critDamage,
       experience: 0,
       level: this.selectedCharacter.level,
-      currency: this.selectedCharacter.currency
+      currency: this.selectedCharacter.currency,
+      class: this.selectedCharacter.name
     };
 
     if (this.promoCode.trim() === 'BONUS2025') {

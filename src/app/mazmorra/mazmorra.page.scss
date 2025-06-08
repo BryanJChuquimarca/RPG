@@ -1,0 +1,264 @@
+.medieval-background {
+  background-size: cover;
+  color: #f8f0d9;
+  font-family: 'Cinzel', serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.medieval-toolbar {
+  --background: #3a2c1c;
+  --color: #f4e1a1;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.medieval-title {
+  font-size: 1.6rem;
+  letter-spacing: 0.15em;
+}
+
+.medieval-card {
+  background: rgba(58, 44, 28, 0.9);
+  border: 2px solid #b59e5c;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #b59e5c;
+  color: #f8f0d9;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+}
+
+.medieval-card-header {
+  border-bottom: 1px solid #b59e5c;
+  margin-bottom: 0.5rem;
+}
+
+.medieval-card-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.game-container {
+  max-width: 1200px;
+  width: 100%;
+  height: 1500px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.enemy-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+
+  .enemy-image {
+    flex: 1 1 200px;
+    position: relative;
+
+    .enemy-sprite {
+      width: 100%;
+      max-width: 220px;
+      filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.7));
+      border: 2px solid #b59e5c;
+      border-radius: 8px;
+      background: #2e2416;
+    }
+
+    .enemy-health-bar {
+      margin-top: 0.5rem;
+      position: relative;
+      height: 22px;
+      background: #5c4a23;
+      border-radius: 12px;
+      overflow: hidden;
+
+      .health-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #e74c3c, #c0392b);
+        transition: width 0.3s ease;
+      }
+
+      .health-text {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        color: #f8f0d9;
+        font-weight: 700;
+        font-size: 0.9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        text-shadow: 1px 1px 2px #000;
+      }
+    }
+  }
+
+  .enemy-stats {
+    flex: 1 1 250px;
+    font-size: 1rem;
+
+    .stat-row {
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+
+      .stat-label {
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #d8c99a;
+      }
+
+      .stat-value {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.players-grid {
+  margin-top: 1rem;
+
+  ion-col {
+    margin-bottom: 1rem;
+  }
+
+  .player-card {
+    background: #3a2c1c;
+    border: 2px solid #b59e5c;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    box-shadow: 0 0 12px #b59e5c;
+    transition: box-shadow 0.3s ease;
+
+    &.active-turn {
+      box-shadow: 0 0 15px 3px #e1c84f;
+      border-color: #e1c84f;
+    }
+
+    .player-image {
+      flex-shrink: 0;
+      position: relative;
+
+      .player-sprite {
+        width: 100px;
+        height: auto;
+        border: 2px solid #b59e5c;
+        border-radius: 8px;
+        background: #2e2416;
+        filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.7));
+      }
+
+      .player-health-bar {
+        margin-top: 0.5rem;
+        height: 20px;
+        background: #5c4a23;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+
+        .health-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #27ae60, #2ecc71);
+          transition: width 0.3s ease;
+        }
+
+        .health-text {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          color: #f8f0d9;
+          font-weight: 700;
+          font-size: 0.85rem;
+          top: 50%;
+          transform: translateY(-50%);
+          text-shadow: 1px 1px 2px #000;
+        }
+      }
+    }
+
+    .player-info {
+      flex-grow: 1;
+
+      .player-name {
+        font-family: 'Cinzel', serif;
+        font-weight: 900;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .player-stats {
+        .stat-row {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.3rem;
+
+          .stat-label {
+            font-weight: 600;
+            color: #d8c99a;
+            text-transform: uppercase;
+          }
+
+          .stat-value {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
+
+.actions-card {
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.battle-log {
+  flex: 1;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.4);
+  color: #f4e1a1;
+  border-radius: 8px;
+  padding: 0.75rem;
+
+  .log-entry {
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px #000;
+  }
+}
+
+/* Scrollbar estilos */
+.battle-log::-webkit-scrollbar {
+  width: 8px;
+}
+
+.battle-log::-webkit-scrollbar-thumb {
+  background: #b59e5c;
+  border-radius: 4px;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .enemy-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .players-grid ion-col {
+    size: 12;
+  }
+}

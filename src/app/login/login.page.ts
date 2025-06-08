@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonButton,IonCol, IonRow, IonGrid, } from '@ionic/angular/standalone';
+import { IonContent, IonButton } from '@ionic/angular/standalone';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 
@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonButton, IonCol, IonRow, IonGrid,]
+  imports: [IonContent, CommonModule, FormsModule, IonButton]
 })
 export class LoginPage implements OnInit {
 

@@ -27,15 +27,13 @@ export class HomePage implements OnInit {
       console.log(this.player);
 
       this.http.get(`${this.host_url}/player/${this.player.email}`).subscribe((response) => {
-        // 1. check if user exist in database
+        
         if (response == 'Player not found') {
-          // 1.1 if player doesn't exist, create player
-          //Navigate to create player page
+          
           this.router.navigate(['/character-creation']);
           
         } else {
-          // 1.2 if player exist, load player data
-
+          
 
         }
         console.log(response);

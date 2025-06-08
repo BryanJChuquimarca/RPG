@@ -1,36 +1,129 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Mazmorra - Sala {{ roomCode }}</ion-title>
+  <ion-toolbar class="medieval-toolbar">
+    <ion-title class="medieval-title">Mazmorra - Sala {{ roomCode }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>Jugadores en la Mazmorra</h2>
-  <ul>
-    @for (player of players; track player){
-    <li>
-      {{ player.name }} -
-      Nivel {{ player.level}} -
-      Nivel Progreso {{ player.current_stage }}
-    </li>
-    }
-  </ul>
+<ion-content class="ion-padding medieval-background">
+  <div class="game-container">
 
-  <h2 *ngIf="!bossRound">Enemigo Actual</h2>
-  <h2 *ngIf="bossRound">Jefe Final</h2>
-  <div *ngIf="enemy">
-    <p><strong>{{ enemy.nombre }}</strong> - Nivel {{ enemy.nivel }} - Vida: {{ enemy.vida }}</p>
+    <ion-card class="round-info medieval-card">
+      <ion-card-header class="medieval-card-header">
+        <ion-card-title class="medieval-card-title">Ronda {{ currentRound }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        @if (turnOrder.length >= currentRound){
+        <div class="turn-indicator">
+          <span class="turn-text">
+            Turno actual: {{ currentTurnIndex + 1 }} / {{ turnOrder[currentRound - 1]?.length || 0 }}
+          </span>
+        </div>}
+      </ion-card-content>
+    </ion-card>
+    @if (enemy && enemy.length >= currentRound){
+    <ion-card class="enemy-card medieval-card">
+      <ion-card-header class="medieval-card-header">
+        <ion-card-title class="medieval-card-title">Enemigo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="enemy-container">
+          <div class="enemy-image">
+            <img [src]="'assets/enemigos/' + enemy[currentRound - 1].name + '.png'"
+              alt="{{ enemy[currentRound - 1].name }}" class="enemy-sprite" />
+            <div class="enemy-health-bar">
+              <div class="health-fill"
+                [style.width.%]="
+                    (enemy[currentRound - 1].health_points / (enemy[currentRound - 1].max_health || enemy[currentRound - 1].health_points)) * 100">
+              </div>
+              <span class="health-text">
+                {{ enemy[currentRound - 1].health_points }} / {{ enemy[currentRound - 1].max_health ||
+                enemy[currentRound - 1].health_points }}
+              </span>
+            </div>
+          </div>
+          <div class="enemy-stats">
+            <div class="stat-row"><span class="stat-label">Nombre:</span> <span class="stat-value">{{ enemy[currentRound
+                - 1].name }}</span></div>
+            <div class="stat-row"><span class="stat-label">MP:</span> <span class="stat-value">{{ enemy[currentRound -
+                1].mana_points }}</span></div>
+            <div class="stat-row"><span class="stat-label">Fuerza:</span> <span class="stat-value">{{ enemy[currentRound
+                - 1].strength }}</span></div>
+            <div class="stat-row"><span class="stat-label">Magia:</span> <span class="stat-value">{{ enemy[currentRound
+                - 1].magical_damage }}</span></div>
+            <div class="stat-row"><span class="stat-label">Defensa:</span> <span class="stat-value">{{
+                enemy[currentRound - 1].defense }}</span></div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>}
+
+    <ion-card class="players-card medieval-card">
+      <ion-card-header class="medieval-card-header">
+        <ion-card-title class="medieval-card-title">Jugadores</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="players-grid">
+          @for ( jugador of players; track jugador){
+          <div class="player-card" [class.active-turn]="isPlayerTurn(jugador)">
+            <div class="player-image">
+              <img [src]="'assets/' + jugador.class + '.png'" class="player-sprite" />
+              <div class="player-health-bar">
+                <div class="health-fill" [style.width.%]="
+                      (jugador.health_points / (jugador.max_health || jugador.health_points)) * 100">
+                </div>
+                <span class="health-text">{{ jugador.health_points }} / {{ jugador.max_health || jugador.health_points
+                  }}</span>
+              </div>
+            </div>
+            <div class="player-info">
+              <h3 class="player-name">{{ jugador.name }}</h3>
+              <div class="player-stats">
+                <div class="stat-row"><span class="stat-label">Nivel:</span> <span class="stat-value">{{ jugador.level
+                    }}</span></div>
+                <div class="stat-row"><span class="stat-label">Stage:</span> <span class="stat-value">{{
+                    jugador.current_stage }}</span></div>
+                <div class="stat-row"><span class="stat-label">MP:</span> <span class="stat-value">{{
+                    jugador.mana_points }}</span></div>
+              </div>
+            </div>
+          </div>}
+        </div>
+      </ion-card-content>
+    </ion-card>
+    @if (isPlayerTurn(currentPlayer)){
+    <ion-card class="actions-card medieval-card">
+      <ion-card-header class="medieval-card-header">
+        <ion-card-title class="medieval-card-title">Acciones</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="action-buttons">
+          <ion-button color="primary" (click)="ataqueFisico()">Ataque Físico</ion-button>
+          <ion-button color="tertiary" (click)="ataqueMagico()">Ataque Mágico</ion-button>
+          <ion-button color="medium" (click)="defender()">Defender</ion-button>
+          <ion-button color="success" (click)="pocion()">Usar Objeto</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>}
+
+
+    <ion-card class="battle-log medieval-card">
+      <ion-card-header class="medieval-card-header">
+        <ion-card-title class="medieval-card-title">Registro de Batalla</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        @if(battleLog && battleLog.length > 0){
+        <div class="log-container">
+          @for(entry of battleLog; track entry){
+          <div class="log-entry">
+            {{ entry }}
+          </div>}
+        </div>}
+        @if(!battleLog || battleLog.length === 0){
+        <div>
+          No hay registros todavía.
+        </div>}
+      </ion-card-content>
+    </ion-card>
+
   </div>
-
-  <h2>Orden de Turnos</h2>
-  <ol>
-    @for (unit of turnOrder; track unit){
-    <li>
-      {{ unit.nombre }} ({{ unit.tipo }})
-    </li>}
-  </ol>
-
-  <ion-button expand="block">
-    Siguiente Ronda
-  </ion-button>
 </ion-content>
