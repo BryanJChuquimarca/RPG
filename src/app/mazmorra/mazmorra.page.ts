@@ -30,7 +30,7 @@ export class MazmorraPage implements OnInit {
   lider: any
   currentTurnIndex = 0;
   battleLog: string[] = [];
-  host_url: string = 'http://localhost:3000';
+  host_url: string = 'https://backend-rpg.onrender.com';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private auth: AuthService) { }
 

@@ -24,7 +24,7 @@ export class SalasPage implements OnInit {
   users: string[] = [];
   typingUsers: Set<string> = new Set();
   joined = false;
-  host_url: string = 'http://localhost:3000';
+  host_url: string = 'https://backend-rpg.onrender.com';
   currentRoom: number | null = null;
   playerInfo: any;
   constructor(private auth: AuthService, private http: HttpClient, private router: Router) { }

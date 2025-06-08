@@ -22,7 +22,7 @@ export class SalaEsperaPage implements OnInit {
   public roomCode: number = 0;
   public lider: string | null = null;
   public playerInfo: any;
-  host_url: string = 'http://localhost:3000';
+  host_url: string = 'https://backend-rpg.onrender.com';
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private alertController: AlertController) { }
 

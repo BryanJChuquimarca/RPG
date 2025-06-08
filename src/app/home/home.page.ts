@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
 
   public player: any;
-  public host_url: string = 'http://localhost:3000'
+  public host_url: string = 'https://backend-rpg.onrender.com'
 
   constructor(private auth: AuthService, private http: HttpClient, private router: Router) { }
 
